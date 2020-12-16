@@ -1,0 +1,43 @@
+<form #f="ngForm" (ngSubmit)="f.form.valid && addSalarie()">
+  <span class="ui-float-label myStyle">
+  <input id="cin" type="text" size="30" pInputText [(ngModel)]="salarie.cin" required #cin="ngModel"
+         name="cin">
+  <label for="Cin">cin</label>
+    <p-message severity="error" text="CIN is required" *ngIf="cin.invalid && f.submitted"></p-message>
+
+  </span>
+  <span class="ui-float-label myStyle">
+  <input id="name" type="text" size="30" pInputText [(ngModel)]="salarie.name" required #name="ngModel"
+         name="name">
+  <label for="name">name</label>
+    <p-message severity="error" text="name is required" *ngIf="name.invalid && f.submitted"></p-message>
+  </span>
+  <span class="ui-float-label myStyle">
+  <input id="salary" type="number" size="30" pInputText [(ngModel)]="salarie.salary" required #salary="ngModel"
+         name="salary" ng-pattern="/^[0-9]{1,7}$/">
+  <label for="salary">salary</label>
+    <p-message severity="error" text="salary is not valid !" *ngIf="salary.invalid && f.submitted"></p-message>
+  </span>
+  <button type="submit" pButton class="ui-button-success myStyle" label="add" ></button>
+  <span class="ui-float-label myStyle">
+    <p-message severity="error" [text]= message [hidden]="message==''"></p-message>
+  </span>
+
+</form>
+
+<p-table [columns]="cols" [value]="salaries">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns">
+        {{rowData[col.field]}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
